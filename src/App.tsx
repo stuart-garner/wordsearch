@@ -41,7 +41,7 @@ function App() {
     return obj;
   });
 
-  const word = "shit";
+  const word = "shite";
 
   const wordArray = word.split("");
 
