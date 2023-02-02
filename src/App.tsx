@@ -1,3 +1,4 @@
+import React from "react";
 import uuid from "react-uuid";
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
   //select one of the available squares at random
   const randomIndex = Math.floor(Math.random() * availablePlaces.length);
   const selectedSquare = availablePlaces[randomIndex];
-  const availableDirections = [];
+  const availableDirections: Array<string> = [];
 
   //loop through the diractions available in the selected square
   for (const [key, value] of Object.entries(selectedSquare)) {
