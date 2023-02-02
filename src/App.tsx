@@ -1,6 +1,8 @@
 import React from "react";
 import uuid from "react-uuid";
-
+/*
+TEST CODE
+*/
 function App() {
   const squareSize = 50;
   const wrapperSize = 250;
