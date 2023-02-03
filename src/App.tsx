@@ -8,7 +8,7 @@ import {
 
 const App = () => {
   const [squareSize, setSquareSize] = useState(50);
-  const [gridSize, setGridSize] = useState(5);
+  const [gridSize, setGridSize] = useState(10);
   const [squares, setSquares] = useState<Array<any>>(setUpGrid(gridSize));
 
   const setWord = (word: string) => {
@@ -50,9 +50,13 @@ const App = () => {
     setWord("Shits");
   };
 
+  const width = squareSize * gridSize;
   return (
     <div className="h-screen w-screen flex justify-center items-center flex-col">
-      <div className={`bg-green-200 flex flex-wrap w-[250px]`}>
+      <div
+        className={`bg-green-200 flex flex-wrap w-[250px]`}
+        style={{ width: width }}
+      >
         {squares.map((item, index) => {
           return (
             <div
