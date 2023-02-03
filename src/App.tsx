@@ -33,7 +33,6 @@ const App = () => {
     clone.forEach((item) => {
       const result = selectedArray.find(({ id }: any) => item.id === id);
       if (result) {
-        // console.log(clone);
         item.letter = result.letter;
       }
     });
@@ -52,10 +51,7 @@ const App = () => {
   const width = squareSize * gridSize;
   return (
     <div className="h-screen w-screen flex justify-center items-center flex-col">
-      <div
-        className={`bg-green-200 flex flex-wrap w-[250px]`}
-        style={{ width: width }}
-      >
+      <div className={`bg-green-200 flex flex-wrap`} style={{ width: width }}>
         {squares.map((item, index) => {
           return (
             <div

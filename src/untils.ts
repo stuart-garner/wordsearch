@@ -61,9 +61,6 @@ export const getSelectedSquare = (
     for (const [key, value] of Object.entries<any>(item)) {
       if (key !== "id") {
         if (value >= word.length) {
-          //Orentation KEY
-          // console.log("ID - ", item.id);
-          // console.log("ORENTATION - ", key);
           let count = item.id;
 
           let arr: Array<any> = [];
@@ -72,12 +69,6 @@ export const getSelectedSquare = (
               squares[count].letter === "" ||
               squares[count].letter === letter
             ) {
-              /* console.log(
-                squares[count].id,
-                "EMPTY SPACE- ",
-                letter,
-                squares[count].letter
-              );*/
               const clone = { ...squares[count] };
               clone.letter = letter;
               arr.push(clone);
@@ -88,13 +79,6 @@ export const getSelectedSquare = (
               } else {
                 count = count + gridSize + 1;
               }
-            } else {
-              /* console.log(
-                squares[count].id,
-                "NO MATCH - ",
-                letter,
-                squares[count].letter
-              );*/
             }
           });
           if (arr.length === wordArray.length) {
