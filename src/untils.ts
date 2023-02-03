@@ -30,6 +30,7 @@ export const setUpGrid = (gridSize: number) => {
     }
     flatArray.push(obj);
   }
+
   return flatArray;
 };
 
@@ -39,9 +40,9 @@ export const getSquaresWithEnoughSpaces = (
 ) => {
   return squares.filter((item) => {
     if (
-      item.horizontal === wordLength ||
-      item.vertical === wordLength ||
-      item.diagonal === wordLength
+      item.horizontal >= wordLength ||
+      item.vertical >= wordLength ||
+      item.diagonal >= wordLength
     ) {
       return item;
     }
@@ -59,7 +60,7 @@ export const getSelectedSquare = (
   availablePlaces.forEach((item) => {
     for (const [key, value] of Object.entries(item)) {
       if (key !== "id") {
-        if (value === word.length) {
+        if (value >= word.length) {
           //Orentation KEY
           // console.log("ID - ", item.id);
           // console.log("ORENTATION - ", key);

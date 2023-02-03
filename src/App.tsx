@@ -38,12 +38,11 @@ const App = () => {
       }
     });
 
-    console.log(clone);
     setSquares(clone);
   };
 
   useEffect(() => {
-    setWord("Shits");
+    // /setWord("Shits");
   }, [null]);
 
   const refresh = () => {
