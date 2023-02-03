@@ -1,40 +1,34 @@
 import "whatwg-fetch";
+import { getSelectedSquare } from "./getSelectedSquare";
 
-export const setUpGrid = (gridSize: number) => {
-  let id = 0;
-  let cols = 0;
-  let rows = 0;
-
-  const totalNumberOfSquares: number = gridSize * gridSize;
-  const flatArray: Array<any> = [];
-
-  for (let i = 0; i < totalNumberOfSquares; i++) {
-    let diagonal = 0;
-    if (cols <= rows) {
-      diagonal = gridSize - rows;
-    } else if (cols > rows) {
-      diagonal = gridSize - cols;
-    }
-
-    const obj: any = {
-      id: id,
-      horizontal: gridSize - cols,
-      vertical: gridSize - rows,
-      diagonal: diagonal,
-      letter: "",
-    };
-
-    id++;
-    cols++;
-    if (cols >= gridSize) {
-      cols = 0;
-      rows++;
-    }
-    flatArray.push(obj);
-  }
-
-  return flatArray;
-};
+export const letters: Array<string> = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
 
 export const getSquaresWithEnoughSpaces = (
   squares: Array<any>,
@@ -49,49 +43,6 @@ export const getSquaresWithEnoughSpaces = (
       return item;
     }
   });
-};
-
-export const getSelectedSquare = (
-  squares: Array<any>,
-  availablePlaces: Array<any>,
-  word: string,
-  gridSize: number
-) => {
-  const wordArray = word.split("");
-  const results: Array<any> = [];
-  availablePlaces.forEach((item) => {
-    for (const [key, value] of Object.entries<any>(item)) {
-      if (key !== "id") {
-        if (value >= word.length) {
-          let count = item.id;
-
-          let arr: Array<any> = [];
-          wordArray.forEach((letter, index) => {
-            if (
-              squares[count].letter === "" ||
-              squares[count].letter === letter
-            ) {
-              const clone = { ...squares[count] };
-              clone.letter = letter;
-              arr.push(clone);
-              if (key === "horizontal") {
-                count++;
-              } else if (key === "vertical") {
-                count = count + gridSize;
-              } else {
-                count = count + gridSize + 1;
-              }
-            }
-          });
-          if (arr.length === wordArray.length) {
-            results.push(arr);
-          }
-        }
-      }
-    }
-  });
-
-  return results;
 };
 
 export const doFetch = (endPoint: string) => {
@@ -112,4 +63,34 @@ export const doFetch = (endPoint: string) => {
     .catch((error) => {
       console.error({ error });
     });
+};
+
+export const getRandomIndex = (array: Array<any>) => {
+  const random = Math.floor(Math.random() * array.length);
+  return array[random];
+};
+
+export const placeWord = (word: string, clone: Array<any>, size: number) => {
+  const availablePlaces: Array<any> = getSquaresWithEnoughSpaces(
+    clone,
+    word.length
+  );
+
+  const results: Array<any> = getSelectedSquare(
+    clone,
+    availablePlaces,
+    word.toLocaleLowerCase(),
+    size
+  );
+
+  const selectedArray = getRandomIndex(results);
+
+  clone.forEach((item) => {
+    if (selectedArray) {
+      const result = selectedArray.find(({ id }: any) => item.id === id);
+      if (result) {
+        item.letter = result.letter;
+      }
+    }
+  });
 };

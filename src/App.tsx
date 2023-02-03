@@ -2,83 +2,12 @@ import React, { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import randomWords from "random-words";
 
-import {
-  doFetch,
-  getSelectedSquare,
-  getSquaresWithEnoughSpaces,
-  setUpGrid,
-} from "./untils";
+import { doFetch, getRandomIndex, letters, placeWord } from "./untils";
+import { setUpGrid } from "./setUpGrid";
 
-const App = () => {
-  const [squareSize, setSquareSize] = useState(50);
-  const [gridSize, setGridSize] = useState(10);
+const App = ({ gridSize = 15, squareSize = 40 }: any) => {
   const [words, setWords] = useState<Array<string>>([]);
   const [squares, setSquares] = useState<Array<any>>(setUpGrid(gridSize));
-
-  const letters: Array<string> = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-  ];
-
-  const clone: Array<any> = [...squares];
-
-  const placeWord = (word: string) => {
-    const availablePlaces: Array<any> = getSquaresWithEnoughSpaces(
-      squares,
-      word.length
-    );
-
-    const results: Array<any> = getSelectedSquare(
-      squares,
-      availablePlaces,
-      word.toLocaleLowerCase(),
-      gridSize
-    );
-
-    const randomIndex = Math.floor(Math.random() * results.length);
-
-    const selectedArray = results[randomIndex];
-
-    clone.forEach((item) => {
-      if (selectedArray) {
-        const result = selectedArray.find(({ id }: any) => item.id === id);
-        if (result) {
-          item.letter = result.letter;
-        }
-      }
-    });
-
-    //
-  };
-
-  const getRandomLetter = () => {
-    const random = Math.floor(Math.random() * letters.length);
-    return letters[random];
-  };
 
   useEffect(() => {
     /*
@@ -88,17 +17,16 @@ const App = () => {
       setWords(data);
     });
     */
-    setWords(randomWords(2));
+    setWords(randomWords(gridSize));
   }, [null]);
 
   useEffect(() => {
+    const clone: Array<any> = [...squares];
     words.forEach((item) => {
-      placeWord(item);
+      placeWord(item, clone, gridSize);
     });
     setSquares(clone);
   }, [words]);
-
-  const refresh = () => {};
 
   const width = squareSize * gridSize;
   return (
@@ -111,9 +39,9 @@ const App = () => {
               style={{ width: squareSize, height: squareSize }}
               className={`${
                 item.letter === "" ? "bg-gray-400" : "bg-yellow-600"
-              } border-yellow-50 border-2 flex justify-center items-center uppercase`}
+              } border-gray-500 border-dotted border-[1px] flex justify-center items-center uppercase`}
             >
-              {item.letter === "" ? getRandomLetter() : item.letter}
+              {item.letter === "" ? getRandomIndex(letters) : item.letter}
             </div>
           );
         })}
@@ -123,7 +51,7 @@ const App = () => {
           <ul>
             {words.map((word) => {
               return (
-                <li className="capitalize" key={word}>
+                <li className="capitalize" key={uuid()}>
                   {word}
                 </li>
               );
@@ -131,7 +59,7 @@ const App = () => {
           </ul>
         </div>
         <button
-          onClick={refresh}
+          onClick={() => null}
           className="mt-5 bg-gray-400 py-2 px-5 rounded-md"
         >
           Refresh
