@@ -66,7 +66,7 @@ const App = () => {
         })}
       </div>
       <button onClick={refresh} className="mt-5">
-        REFRESH
+        Add Shits
       </button>
     </div>
   );
