@@ -1,3 +1,5 @@
+import "whatwg-fetch";
+
 export const setUpGrid = (gridSize: number) => {
   let id = 0;
   let cols = 0;
@@ -90,4 +92,24 @@ export const getSelectedSquare = (
   });
 
   return results;
+};
+
+export const doFetch = (endPoint: string) => {
+  return fetch(endPoint)
+    .then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        return { data };
+      }
+
+      const error = {
+        error: new Error(),
+        message: `ERROR - ${response.statusText} error has occured`,
+        response: response,
+      };
+      return { error };
+    })
+    .catch((error) => {
+      console.error({ error });
+    });
 };

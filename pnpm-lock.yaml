@@ -6,12 +6,14 @@ specifiers:
   '@vitejs/plugin-react': ^3.0.0
   autoprefixer: ^10.4.13
   postcss: ^8.4.21
+  random-words: ^1.2.1
   react: ^18.2.0
   react-dom: ^18.2.0
   react-uuid: ^2.0.0
   tailwindcss: ^3.2.4
   typescript: ^4.9.3
   vite: ^4.0.0
+  whatwg-fetch: ^3.6.2
 
 dependencies:
   react: 18.2.0
@@ -23,10 +25,12 @@ devDependencies:
   '@vitejs/plugin-react': 3.0.1_vite@4.0.4
   autoprefixer: 10.4.13_postcss@8.4.21
   postcss: 8.4.21
+  random-words: 1.2.1
   react-uuid: 2.0.0
   tailwindcss: 3.2.4_postcss@8.4.21
   typescript: 4.9.5
   vite: 4.0.4
+  whatwg-fetch: 3.6.2
 
 packages:
 
@@ -1057,6 +1061,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /random-words/1.2.1:
+    resolution: {integrity: sha512-LG7ejRI9bhOeJ9+Rde4nRyCgdpfmC6vDZU/KlWdvWfMhK88aEWyl6f8qkLxlgO/qvWAXanhhulzQBZT8uDApCA==}
+    dev: true
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -1250,6 +1258,10 @@ packages:
       rollup: 3.12.1
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /whatwg-fetch/3.6.2:
+    resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
     dev: true
 
   /xtend/4.0.2:
