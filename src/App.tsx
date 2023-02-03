@@ -1,98 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import uuid from "react-uuid";
-/*
-TEST CODE
-*/
-function App() {
-  const squareSize = 50;
-  const wrapperSize = 250;
-  const numberOfSquarePerRow = wrapperSize / squareSize;
-  const numberOfSquaresTotal = numberOfSquarePerRow * numberOfSquarePerRow;
+import {
+  getAvailableOrientations,
+  getSelectedSquare,
+  getSquaresWithEnoughSpaces,
+  setUpGrid,
+} from "./untils";
 
-  const letterArray = Array.apply(null, Array(numberOfSquaresTotal));
+const App = () => {
+  const [squareSize, setSquareSize] = useState(50);
+  const [gridSize, setGridSize] = useState(5);
+  const [squares, setSquares] = useState<Array<any>>(setUpGrid(gridSize));
 
-  let id = 0;
-  let cols = 0;
-  let rows = 0;
-  const num = 5;
+  const setWord = (word: string) => {
+    const availablePlaces: Array<any> = getSquaresWithEnoughSpaces(
+      squares,
+      word.length
+    );
 
-  const flatArray = letterArray.map((item, index) => {
-    let temp = 0;
-    if (cols <= rows) {
-      temp = num - rows;
-    } else if (cols > rows) {
-      temp = num - cols;
-    }
+    const results: Array<any> = getSelectedSquare(
+      squares,
+      availablePlaces,
+      word.toLocaleLowerCase(),
+      gridSize
+    );
 
-    const obj = {
-      id: id,
-      horizontal: num - cols,
-      vertical: num - rows,
-      diagonal: temp,
-      letter: "",
-    };
+    const randomIndex = Math.floor(Math.random() * results.length);
 
-    id++;
-    cols++;
-    if (cols >= 5) {
-      cols = 0;
-      rows++;
-    }
-    return obj;
-  });
+    const selectedArray = results[randomIndex];
 
-  const word = "shite";
+    const clone: Array<any> = [...squares];
 
-  const wordArray = word.split("");
-
-  //returns all squares that have a directionavailable that can hold the word.
-  const availablePlaces = flatArray.filter((item) => {
-    if (
-      item.horizontal === word.length ||
-      item.vertical === word.length ||
-      item.diagonal === word.length
-    ) {
-      return item;
-    }
-  });
-
-  //select one of the available squares at random
-  const randomIndex = Math.floor(Math.random() * availablePlaces.length);
-  const selectedSquare = availablePlaces[randomIndex];
-  const availableDirections: Array<string> = [];
-
-  //loop through the diractions available in the selected square
-  for (const [key, value] of Object.entries(selectedSquare)) {
-    if (key !== "id") {
-      if (value === word.length) {
-        availableDirections.push(key);
+    clone.forEach((item) => {
+      const result = selectedArray.find(({ id }: any) => item.id === id);
+      if (result) {
+        // console.log(clone);
+        item.letter = result.letter;
       }
-    }
-  }
+    });
 
-  //select one of the directions at random
-  const randomDirectionIndex = Math.floor(
-    Math.random() * availableDirections.length
-  );
-  const selectedDirection = availableDirections[randomDirectionIndex];
-  let count = selectedSquare.id;
-  wordArray.forEach((item, index) => {
-    flatArray[count].letter = wordArray[index];
-    if (count <= flatArray.length) {
-      if (selectedDirection === "horizontal") {
-        count++;
-      } else if (selectedDirection === "vertical") {
-        count = count + 5;
-      } else {
-        count = count + 6;
-      }
-    }
-  });
+    console.log(clone);
+    setSquares(clone);
+  };
+
+  useEffect(() => {
+    setWord("Shits");
+  }, [null]);
+
+  const refresh = () => {
+    setWord("Shits");
+  };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="h-screen w-screen flex justify-center items-center flex-col">
       <div className={`bg-green-200 flex flex-wrap w-[250px]`}>
-        {flatArray.map((item, index) => {
+        {squares.map((item, index) => {
           return (
             <div
               key={uuid()}
@@ -103,8 +65,11 @@ function App() {
           );
         })}
       </div>
+      <button onClick={refresh} className="mt-5">
+        REFRESH
+      </button>
     </div>
   );
-}
+};
 
 export default App;
