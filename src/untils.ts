@@ -58,7 +58,7 @@ export const getSelectedSquare = (
   const wordArray = word.split("");
   const results: Array<any> = [];
   availablePlaces.forEach((item) => {
-    for (const [key, value] of Object.entries(item)) {
+    for (const [key, value] of Object.entries<any>(item)) {
       if (key !== "id") {
         if (value >= word.length) {
           //Orentation KEY
