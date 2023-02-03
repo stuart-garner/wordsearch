@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import {
-  getAvailableOrientations,
   getSelectedSquare,
   getSquaresWithEnoughSpaces,
   setUpGrid,
