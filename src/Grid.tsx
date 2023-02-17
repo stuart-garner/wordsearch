@@ -4,17 +4,21 @@ import * as PIXI from "pixi.js";
 type GridPropsType = {
   data: any;
   grigSize: number;
+  onDragStart: (item: any) => void;
+  onDragStop: (item: any) => void;
 };
 
 class Grid extends React.Component<GridPropsType> {
   app: any;
   gridRef: any;
   squareSize: number;
+  isDragging: boolean;
   constructor(props: any) {
     super(props);
     this.gridRef = React.createRef();
     this.app = null;
     this.squareSize = 50;
+    this.isDragging = false;
   }
 
   componentDidMount() {
@@ -36,6 +40,14 @@ class Grid extends React.Component<GridPropsType> {
       square.interactive = true;
       square.x = posX;
       square.y = posY;
+      square.on("pointerdown", () => {
+        this.isDragging = true;
+        this.props.onDragStart(item);
+      });
+      square.on("pointerup", () => {
+        this.isDragging = false;
+        this.props.onDragStop(item);
+      });
       const text = item.letter === "" ? "" : item.letter.toUpperCase();
       const graphics = new PIXI.Graphics();
       graphics.beginFill(item.letter === "" ? 0x989898 : 0xffff00);
@@ -58,7 +70,12 @@ class Grid extends React.Component<GridPropsType> {
     });
   }
 
+  shouldComponentUpdate(nextProps: GridPropsType) {
+    return false;
+  }
+
   render() {
+    console.log("RENDER");
     return <div ref={this.gridRef}></div>;
   }
 }
