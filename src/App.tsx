@@ -28,13 +28,11 @@ const App = () => {
   }, [null]);
 
   const onDragStart = (squ: any) => {
-    console.log(squ);
     setLastSquare(null);
     setFirstSquare(squ);
   };
 
   const onDragStop = (squ: any) => {
-    console.log(squ);
     setLastSquare(squ);
   };
 
@@ -63,6 +61,7 @@ const App = () => {
         <div id="grid">
           <Grid
             data={grid}
+            words={words}
             grigSize={gridSize}
             onDragStart={onDragStart}
             onDragStop={onDragStop}
