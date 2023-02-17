@@ -89,7 +89,12 @@ class Grid extends React.Component<GridPropsType> {
   onMouseMove(event: any) {
     if (this.isDragging) {
       this.selectLine.clear();
-      this.selectLine.lineStyle(10, 0xffff00, 0.5);
+      this.selectLine.lineStyle({
+        width: 35,
+        color: 0xffff00,
+        alpha: 0.5,
+        cap: PIXI.LINE_CAP.ROUND,
+      });
       this.selectLine.moveTo(this.isDragging.centerX, this.isDragging.centerY);
       this.selectLine.lineTo(event.data.global.x, event.data.global.y);
       this.mainContainer.addChild(this.selectLine);
@@ -101,7 +106,12 @@ class Grid extends React.Component<GridPropsType> {
       this.foundLines.clear();
       nextProps.words.forEach((item: any) => {
         if (item.found) {
-          this.foundLines.lineStyle(10, 0xff00ff, 0.5);
+          this.foundLines.lineStyle({
+            width: 35,
+            color: 0xff00ff,
+            alpha: 0.5,
+            cap: PIXI.LINE_CAP.ROUND,
+          });
           const start = item.selectedSpace[0];
           const end = item.selectedSpace[item.selectedSpace.length - 1];
           this.foundLines.moveTo(

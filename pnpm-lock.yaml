@@ -8,6 +8,7 @@ specifiers:
   autoprefixer: ^10.4.13
   axios: ^1.3.3
   axios-hooks: ^4.0.0
+  js-confetti: ^0.11.0
   pixi.js: ^7.1.2
   postcss: ^8.4.21
   random-words: ^1.2.1
@@ -32,6 +33,7 @@ devDependencies:
   autoprefixer: 10.4.13_postcss@8.4.21
   axios: 1.3.3
   axios-hooks: 4.0.0_axios@1.3.3+react@18.2.0
+  js-confetti: 0.11.0
   pixi.js: 7.1.2
   postcss: 8.4.21
   random-words: 1.2.1
@@ -1188,6 +1190,10 @@ packages:
   /is-number/7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
+    dev: true
+
+  /js-confetti/0.11.0:
+    resolution: {integrity: sha512-Hc7I3VI4r4H0nq5q/oQK+JJwGoYRYVHK72fGk8E9Ay1dbh+aiZ9yl0yFp1K4oYeq7YFDQAndYChwqLPA3QWQuA==}
     dev: true
 
   /js-tokens/4.0.0:

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "./Grid";
 import uuid from "react-uuid";
+import JSConfetti from "js-confetti";
 
 const App = () => {
   const [gridSize, setGridSize] = useState(15);
@@ -11,6 +12,19 @@ const App = () => {
   const [isLoading, setIsLoading] = useState<any>(false);
   const [firstSquare, setFirstSquare] = useState<any>();
   const [lastSquare, setLastSquare] = useState<any>();
+
+  const jsConfetti = new JSConfetti();
+
+  useEffect(() => {
+    if (words) {
+      const isComplete = !words.find((item: any) => {
+        if (!item.found) {
+          return true;
+        }
+      });
+      if (isComplete) jsConfetti.addConfetti();
+    }
+  }, [words]);
 
   useEffect(() => {
     setIsLoading(true);
