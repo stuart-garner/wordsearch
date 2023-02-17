@@ -7,3 +7,11 @@
     @apply bg-gray-500;
   }
 }
+
+.square {
+  @apply cursor-pointer  flex justify-center items-center uppercase rounded-full select-none;
+}
+
+.square:hover {
+  @apply bg-white text-gray-900 cursor-pointer;
+}
