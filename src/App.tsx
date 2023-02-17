@@ -14,11 +14,11 @@ const App = () => {
   if (error) return <div>ERROR</div>;
   if (data)
     return (
-      <div className="flex gap-10 capitalize">
+      <div className="flex gap-10 capitalize justify-center h-screen items-center">
         <div id="grid">
           <Grid data={data.grid} grigSize={gridSize} />
         </div>
-        <div id="words">
+        <div id="words" className="text-xl">
           <ul>
             {data.words.map(({ word }: any) => {
               return <li key={uuid()}>{word}</li>;
@@ -27,6 +27,8 @@ const App = () => {
         </div>
       </div>
     );
+
+  return null;
 };
 
 export default App;
