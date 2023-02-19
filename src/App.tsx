@@ -53,9 +53,9 @@ const App = () => {
   useEffect(() => {
     if (firstSquare && lastSquare) {
       const clone = [...words];
-      clone.find((item: any) => {
-        const itemfirstIndex = item.selectedSpace[0];
-        const itemLastIndex = item.selectedSpace[item.selectedSpace.length - 1];
+      clone.forEach((item: any) => {
+        const itemfirstIndex = item.startIndex;
+        const itemLastIndex = item.endIndex;
         if (
           itemfirstIndex === firstSquare.id &&
           itemLastIndex === lastSquare.id

@@ -112,8 +112,8 @@ class Grid extends React.Component<GridPropsType> {
             alpha: 0.5,
             cap: PIXI.LINE_CAP.ROUND,
           });
-          const start = item.selectedSpace[0];
-          const end = item.selectedSpace[item.selectedSpace.length - 1];
+          const start = item.startIndex;
+          const end = item.endIndex;
           this.foundLines.moveTo(
             this.props.data[start].centerX,
             this.props.data[start].centerY
