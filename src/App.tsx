@@ -3,6 +3,12 @@ import axios from "axios";
 import Grid from "./Grid";
 import uuid from "react-uuid";
 import JSConfetti from "js-confetti";
+import { COLOURS } from "./constants";
+
+const getHexColor = (color?: string) => {
+  const hex = color?.slice(2, 8);
+  return `#${hex}`;
+};
 
 const App = () => {
   const [gridSize, setGridSize] = useState(15);
@@ -52,6 +58,7 @@ const App = () => {
 
   useEffect(() => {
     if (firstSquare && lastSquare) {
+      const random = Math.floor(Math.random() * COLOURS.length);
       const clone = [...words];
       clone.forEach((item: any) => {
         const itemfirstIndex = item.startIndex;
@@ -61,6 +68,7 @@ const App = () => {
           itemLastIndex === lastSquare.id
         ) {
           item.found = true;
+          item.colour = COLOURS[random];
           setWords(clone);
         }
       });
@@ -71,8 +79,8 @@ const App = () => {
   if (isError) return <div>ERROR</div>;
   if (grid && words) {
     return (
-      <div className="flex gap-10 capitalize justify-center h-screen items-center">
-        <div id="grid">
+      <div className="flex gap-10 capitalize justify-center h-screen items-center ">
+        <div id="grid" className="bg-green-500">
           <Grid
             data={grid}
             words={words}
@@ -81,16 +89,23 @@ const App = () => {
             onDragStop={onDragStop}
           />
         </div>
-        <div id="words" className="text-xl">
-          <ul>
-            {words.map(({ word, found }: any) => {
-              return (
-                <li key={uuid()} className={`${found ? "line-through" : ""}`}>
-                  {word}
-                </li>
-              );
-            })}
-          </ul>
+        <div
+          id="words"
+          className="text-xl flex w-[400px] flex-wrap gap-5 max-h-[800px]"
+        >
+          {words.map(({ word, found, colour }: any) => {
+            return (
+              <div
+                key={uuid()}
+                className={`${
+                  found ? "line-through" : ""
+                }  py-2 px-4 rounded-lg`}
+                style={{ backgroundColor: getHexColor(colour) }}
+              >
+                {word}
+              </div>
+            );
+          })}
         </div>
       </div>
     );

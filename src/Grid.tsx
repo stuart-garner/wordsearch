@@ -90,8 +90,8 @@ class Grid extends React.Component<GridPropsType> {
     if (this.isDragging) {
       this.selectLine.clear();
       this.selectLine.lineStyle({
-        width: 35,
-        color: 0xffff00,
+        width: 5,
+        color: 0x000000,
         alpha: 0.5,
         cap: PIXI.LINE_CAP.ROUND,
       });
@@ -108,7 +108,7 @@ class Grid extends React.Component<GridPropsType> {
         if (item.found) {
           this.foundLines.lineStyle({
             width: 35,
-            color: 0xff00ff,
+            color: item.colour,
             alpha: 0.5,
             cap: PIXI.LINE_CAP.ROUND,
           });
